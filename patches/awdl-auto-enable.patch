@@ -1,0 +1,63 @@
+mt7925: enable the awdl sniffer automatically with owly's monitor
+
+instead of needing a manual write to the awdl_rx debugfs file, turn the
+promiscuous sniffer on (and open the rx filter) whenever a monitor
+interface is added, and turn it back off when the monitor goes away.
+owly's exclusive mode brings its ap cell up on-channel first and then
+adds the monitor, so by the time add_interface runs for the monitor the
+channel is already set in mphy->chandef, which config_sniffer falls back
+to when the vif has no chanctx of its own. the ap cell keeps acking the
+phone; this just makes the mac deliver ambient awdl alongside it.
+
+--- a/mt7925/main.c
++++ b/mt7925/main.c
+@@ -451,6 +451,30 @@
+ 	return ret;
+ }
+
++static void
++mt7925_awdl_rx_enable(struct mt792x_dev *dev, struct ieee80211_vif *vif,
++		      bool enable)
++{
++	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
++	u32 drop = MT_WF_RFCR_DROP_OTHER_BSS |
++		   MT_WF_RFCR_DROP_OTHER_UC |
++		   MT_WF_RFCR_DROP_A3_BSSID |
++		   MT_WF_RFCR_DROP_A2_BSSID |
++		   MT_WF_RFCR_DROP_OTHER_BEACON |
++		   MT_WF_RFCR_DROP_OTHER_TIM;
++
++	/* owly's exclusive mode puts an ap cell on-channel to ack the phone,
++	 * then adds this monitor. the firmware sniffer is what delivers
++	 * ambient awdl, so turn it on here (the ap already set the channel in
++	 * mphy->chandef, which config_sniffer falls back to) and open the rx
++	 * filter. undo both when the monitor goes away. bit_op 2 clears the
++	 * drop bitmap, 1 restores it. */
++	mt7925_mcu_set_sniffer(dev, vif, enable);
++	if (enable)
++		mt7925_mcu_config_sniffer(mvif, mvif->bss_conf.mt76.ctx);
++	mt7925_mcu_set_rxfilter(dev, 0, enable ? 2 : 1, drop);
++}
++
+ static int
+ mt7925_add_interface(struct ieee80211_hw *hw, struct ieee80211_vif *vif)
+ {
+@@ -480,6 +504,9 @@
+
+ 	if (vif->type == NL80211_IFTYPE_NAN)
+ 		dev->nan_vif = vif;
++
++	if (vif->type == NL80211_IFTYPE_MONITOR)
++		mt7925_awdl_rx_enable(dev, vif, true);
+ out:
+ 	mt792x_mutex_release(dev);
+
+@@ -501,6 +528,9 @@
+ 	mconf = mt792x_link_conf_to_mconf(&vif->bss_conf);
+ 	mt792x_mac_link_bss_remove(dev, mconf, &mvif->sta.deflink);
+
++	if (vif->type == NL80211_IFTYPE_MONITOR)
++		mt7925_awdl_rx_enable(dev, vif, false);
++
+ 	mt792x_mutex_release(dev);
+ }
