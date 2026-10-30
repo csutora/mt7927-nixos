@@ -70,9 +70,14 @@
       mkMt7927 =
         kernel:
         let
-          isClang = kernel.stdenv.cc.isClang or false;
           kernelBuild = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-          makeFlags = if isClang then "LLVM=1 CC=clang" else "";
+          # kernel.commonMakeFlags carries the toolchain and, crucially, the
+          # kmodigest cmd_sign override that nixpkgs uses in place of in-kernel
+          # module signing. passing it to both the build and modules_install is
+          # what makes each external .ko get its .ko.cer certificate, which the
+          # module-tree aggregator then concatenates into modules.cer. without
+          # it the aggregator dies on the missing certs.
+          moduleMakeFlags = pkgs.lib.escapeShellArgs kernel.commonMakeFlags;
         in
         rec {
           firmware = kernel.stdenv.mkDerivation {
@@ -94,7 +99,7 @@
             installPhase = ''
               runHook preInstall
               install -Dm644 firmware/BT_RAM_CODE_MT6639_2_1_hdr.bin \
-                "$out/lib/firmware/mediatek/mt6639/BT_RAM_CODE_MT6639_2_1_hdr.bin"
+                "$out/lib/firmware/mediatek/mt7927/BT_RAM_CODE_MT6639_2_1_hdr.bin"
               install -Dm644 firmware/WIFI_MT6639_PATCH_MCU_2_1_hdr.bin \
                 "$out/lib/firmware/mediatek/mt7927/WIFI_MT6639_PATCH_MCU_2_1_hdr.bin"
               install -Dm644 firmware/WIFI_RAM_CODE_MT6639_2_1.bin \
@@ -127,16 +132,14 @@
             '';
             buildPhase = ''
               runHook preBuild
-              make -C ${kernelBuild} M=$(pwd) ${makeFlags} modules
+              make -C ${kernelBuild} M=$(pwd) ${moduleMakeFlags} modules
               runHook postBuild
             '';
             installPhase = ''
               runHook preInstall
-              modDir="$out/lib/modules/${kernel.modDirVersion}/extra/mt76"
-              install -dm755 "$modDir/mt7921" "$modDir/mt7925"
-              install -m644 mt76.ko mt76-connac-lib.ko mt792x-lib.ko "$modDir/"
-              install -m644 mt7921/*.ko "$modDir/mt7921/"
-              install -m644 mt7925/*.ko "$modDir/mt7925/"
+              make -C ${kernelBuild} M=$(pwd) ${moduleMakeFlags} \
+                INSTALL_MOD_PATH="$out" INSTALL_MOD_DIR=extra/mt76 \
+                DEPMOD=true INSTALL_MOD_STRIP=1 modules_install
               runHook postInstall
             '';
           };
@@ -150,14 +153,14 @@
             buildPhase = ''
               runHook preBuild
               echo "obj-m += btusb.o btmtk.o" > Makefile
-              make -C ${kernelBuild} M=$(pwd) ${makeFlags} modules
+              make -C ${kernelBuild} M=$(pwd) ${moduleMakeFlags} modules
               runHook postBuild
             '';
             installPhase = ''
               runHook preInstall
-              modDir="$out/lib/modules/${kernel.modDirVersion}/extra/bluetooth"
-              install -dm755 "$modDir"
-              install -m644 btusb.ko btmtk.ko "$modDir/"
+              make -C ${kernelBuild} M=$(pwd) ${moduleMakeFlags} \
+                INSTALL_MOD_PATH="$out" INSTALL_MOD_DIR=extra/bluetooth \
+                DEPMOD=true INSTALL_MOD_STRIP=1 modules_install
               runHook postInstall
             '';
           };

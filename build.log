@@ -1,0 +1,266 @@
+warning: Git tree '/home/numi/.nara/dots' is dirty
+warning: not writing modified lock file of flake 'git+file:///home/numi/.nara/dots':
+• Updated input 'mt7927':
+    'github:cmspam/mt7927-nixos/5850ef1bf909fd59ff6ec5badbb9a02e54890b79?narHash=sha256-IJqiMoyHaT6jP%2Bg%2ByeII1uurdJS7cuok8stw9kNV9uU%3D' (2026-10-28)
+  → 'path:/tmp/mt7927-nixos?lastModified=1793364626&narHash=sha256-/YY8GV5Zgwi8aRZ7v9GiKq8NjIhNboljoBvvkst15%2Bw%3D' (2026-10-30)
+these 3 derivations will be built:
+  /nix/store/g1wshhxdcy4rnr37awyaa0bwqi0fy5kr-mediatek-mt7927-bluetooth-2.1.drv
+  /nix/store/kwf3wj38zyr40xg64lqdzab8rpddjsa4-mediatek-mt7927-wifi-2.1.drv
+  /nix/store/f8b4p7lcgsdblhlciq7dlb4srv8wm2ac-linux-7.2.13-modules.drv
+building '/nix/store/g1wshhxdcy4rnr37awyaa0bwqi0fy5kr-mediatek-mt7927-bluetooth-2.1.drv'...
+building '/nix/store/kwf3wj38zyr40xg64lqdzab8rpddjsa4-mediatek-mt7927-wifi-2.1.drv'...
+mediatek-mt7927-bluetooth> Running phase: unamePreHook
+mediatek-mt7927-bluetooth> Running phase: unpackPhase
+mediatek-mt7927-bluetooth> unpacking source archive /nix/store/4v2gjz9iz63vmqi0m400fnazm7jycj5d-source/drivers/bluetooth
+mediatek-mt7927-bluetooth> source root is bluetooth
+mediatek-mt7927-bluetooth> Running phase: patchPhase
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-01-add-hp-elitemini-e156-id.patch
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> patching file btusb.c
+mediatek-mt7927-bluetooth> Hunk #1 succeeded at 791 (offset 36 lines).
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-02-no-reset-when-firmware-absent.patch
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> Hunk #1 succeeded at 1390 (offset -4 lines).
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-for-pre-7.0-kernels.patch
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> patching file btusb.c
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-for-pre-7.3-kernels.patch
+mediatek-mt7927-bluetooth> patching file btusb.c
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-linux-6.8.patch
+mediatek-mt7927-wifi> Running phase: unamePreHook
+mediatek-mt7927-bluetooth> patching file btusb.c
+mediatek-mt7927-bluetooth> Hunk #1 succeeded at 19 with fuzz 2 (offset 1 line).
+mediatek-mt7927-bluetooth> Hunk #2 succeeded at 3455 (offset 139 lines).
+mediatek-mt7927-bluetooth> Hunk #3 succeeded at 4095 (offset 140 lines).
+mediatek-mt7927-bluetooth> Hunk #4 succeeded at 4226 (offset 140 lines).
+mediatek-mt7927-bluetooth> Hunk #5 succeeded at 4359 (offset 142 lines).
+mediatek-mt7927-bluetooth> Hunk #6 succeeded at 4479 (offset 144 lines).
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-payload-bounds.patch
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-usb-pm.patch
+mediatek-mt7927-wifi> Running phase: unpackPhase
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> Hunk #2 succeeded at 779 (offset 5 lines).
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-wmt-pm.patch
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> Hunk #4 succeeded at 781 (offset 5 lines).
+mediatek-mt7927-wifi> unpacking source archive /nix/store/4v2gjz9iz63vmqi0m400fnazm7jycj5d-source/drivers/net/wireless/mediatek/mt76
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-zz-diagnostics.patch
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> Hunk #6 succeeded at 1421 (offset 10 lines).
+mediatek-mt7927-bluetooth> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt6639-bt-compat-zzz-local-version.patch
+mediatek-mt7927-bluetooth> patching file btusb.c
+mediatek-mt7927-bluetooth> Hunk #1 succeeded at 4918 (offset 163 lines).
+mediatek-mt7927-bluetooth> patching file btmtk.c
+mediatek-mt7927-bluetooth> Running phase: updateAutotoolsGnuConfigScriptsPhase
+mediatek-mt7927-bluetooth> Running phase: configurePhase
+mediatek-mt7927-wifi> source root is mt76
+mediatek-mt7927-bluetooth> no configure script, doing nothing
+mediatek-mt7927-bluetooth> Running phase: buildPhase
+mediatek-mt7927-wifi> Running phase: patchPhase
+mediatek-mt7927-bluetooth> make: Entering directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-01-add-missing-he-ap-phy-capabilities.patch
+mediatek-mt7927-wifi> patching file mt7925/main.c
+mediatek-mt7927-wifi> Hunk #1 succeeded at 65 (offset 1 line).
+mediatek-mt7927-wifi> Hunk #2 succeeded at 71 (offset 1 line).
+mediatek-mt7927-wifi> Hunk #3 succeeded at 78 (offset 1 line).
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-02-add-starecmuru-tlv-for-ap-mode.patch
+mediatek-mt7927-bluetooth> make[1]: Entering directory '/build/bluetooth'
+mediatek-mt7927-wifi> patching file mt7925/mcu.c
+mediatek-mt7927-wifi> Hunk #1 succeeded at 21 (offset 8 lines).
+mediatek-mt7927-wifi> Hunk #2 succeeded at 1772 (offset 68 lines).
+mediatek-mt7927-wifi> Hunk #3 succeeded at 2213 (offset 92 lines).
+mediatek-mt7927-wifi> patching file mt7925/mcu.h
+mediatek-mt7927-wifi> Hunk #1 succeeded at 544 (offset 21 lines).
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-03-add-starectxproc-tlv.patch
+mediatek-mt7927-wifi> patching file mt7925/mcu.c
+mediatek-mt7927-wifi> Hunk #1 succeeded at 1772 (offset 12 lines).
+mediatek-mt7927-wifi> Hunk #2 succeeded at 2253 (offset 92 lines).
+mediatek-mt7927-wifi> patching file mt7925/mcu.h
+mediatek-mt7927-wifi> Hunk #1 succeeded at 545 (offset 21 lines).
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-04-add-sta-fallback-recovery-in-tx-free-pat.patch
+mediatek-mt7927-wifi> patching file mt7925/mac.c
+mediatek-mt7927-wifi> Hunk #1 succeeded at 1293 (offset 200 lines).
+mediatek-mt7927-wifi> Hunk #2 succeeded at 1352 (offset 200 lines).
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-compat-action-frame-for-pre-7.1-kernels.patch
+mediatek-mt7927-wifi> patching file mt76_connac_mac.c
+mediatek-mt7927-wifi> Hunk #2 succeeded at 423 (offset 9 lines).
+mediatek-mt7927-wifi> patching file mt7925/mac.c
+mediatek-mt7927-wifi> Hunk #2 succeeded at 688 (offset 14 lines).
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-compat-eml-cap-macros-for-pre-7.2-kernels.patch
+mediatek-mt7927-wifi> patching file mt7925/mcu.c
+mediatek-mt7927-wifi> Hunk #1 succeeded at 9 with fuzz 2 (offset 1 line).
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-compat-kzalloc_flex-for-pre-7.0-kernels.patch
+mediatek-mt7927-wifi> patching file agg-rx.c
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-compat-nan-for-pre-7.1-kernels.patch
+mediatek-mt7927-wifi> patching file mt76_connac_mcu.h
+mediatek-mt7927-wifi> patching file mt76_connac_mcu.c
+mediatek-mt7927-wifi> patching file mt792x_core.c
+mediatek-mt7927-wifi> patching file mt7925/init.c
+mediatek-mt7927-wifi> patching file mt7925/mcu.c
+mediatek-mt7927-wifi> patching file mt7925/main.c
+mediatek-mt7927-wifi> patching file mt7925/nan.c
+mediatek-mt7927-wifi> applying patch /nix/store/lc0flbj4c6q4faanxsc46llyarvy0d8c-source/mt7927-wifi-compat-regd-obj-aql-for-pre-7.2-kernels.patch
+mediatek-mt7927-wifi> patching file mt7925/regd.c
+mediatek-mt7927-wifi> patching file mt7921/regd.c
+mediatek-mt7927-wifi> patching file mt7925/main.c
+mediatek-mt7927-wifi> patching file tx.c
+mediatek-mt7927-wifi> patching file mt7925/nan.c
+mediatek-mt7927-wifi> Running phase: updateAutotoolsGnuConfigScriptsPhase
+mediatek-mt7927-wifi> Running phase: configurePhase
+mediatek-mt7927-wifi> no configure script, doing nothing
+mediatek-mt7927-wifi> Running phase: buildPhase
+mediatek-mt7927-wifi> make: Entering directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-wifi> make[1]: Entering directory '/build/mt76'
+mediatek-mt7927-bluetooth>   CC [M]  btusb.o
+mediatek-mt7927-wifi>   CC [M]  mmio.o
+mediatek-mt7927-wifi>   CC [M]  util.o
+mediatek-mt7927-wifi>   CC [M]  trace.o
+mediatek-mt7927-bluetooth>   CC [M]  btmtk.o
+mediatek-mt7927-wifi>   CC [M]  dma.o
+mediatek-mt7927-bluetooth>   MODPOST Module.symvers
+mediatek-mt7927-bluetooth>   CC [M]  btusb.mod.o
+mediatek-mt7927-bluetooth>   CC [M]  .module-common.o
+mediatek-mt7927-wifi>   CC [M]  mac80211.o
+mediatek-mt7927-bluetooth>   LD [M]  btusb.ko
+mediatek-mt7927-bluetooth>   BTF [M] btusb.ko
+mediatek-mt7927-bluetooth>   CC [M]  btmtk.mod.o
+mediatek-mt7927-bluetooth>   LD [M]  btmtk.ko
+mediatek-mt7927-bluetooth>   BTF [M] btmtk.ko
+mediatek-mt7927-bluetooth> make[1]: Leaving directory '/build/bluetooth'
+mediatek-mt7927-bluetooth> make: Leaving directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-bluetooth> Running phase: installPhase
+mediatek-mt7927-bluetooth> make: Entering directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-bluetooth> make[1]: Entering directory '/build/bluetooth'
+mediatek-mt7927-bluetooth>   INSTALL /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btusb.ko
+mediatek-mt7927-bluetooth>   STRIP   /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btusb.ko
+mediatek-mt7927-bluetooth>   SIGN    /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btusb.ko
+mediatek-mt7927-bluetooth>   XZ      /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btusb.ko.xz
+mediatek-mt7927-bluetooth>   INSTALL /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btmtk.ko
+mediatek-mt7927-bluetooth>   STRIP   /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btmtk.ko
+mediatek-mt7927-bluetooth>   SIGN    /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btmtk.ko
+mediatek-mt7927-bluetooth>   XZ      /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13/extra/bluetooth/btmtk.ko.xz
+mediatek-mt7927-bluetooth>   DEPMOD  /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib/modules/7.2.13
+mediatek-mt7927-bluetooth> make[1]: Leaving directory '/build/bluetooth'
+mediatek-mt7927-bluetooth> make: Leaving directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-bluetooth> Running phase: fixupPhase
+mediatek-mt7927-bluetooth> shrinking RPATHs of ELF executables and libraries in /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1
+mediatek-mt7927-bluetooth> checking for references to /build/ in /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1...
+mediatek-mt7927-bluetooth> patching script interpreter paths in /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1
+mediatek-mt7927-bluetooth> stripping (with command strip and flags -S -p) in /nix/store/wlrl2k6dvpbri981i69v6cgsqf6il8ni-mediatek-mt7927-bluetooth-2.1/lib
+mediatek-mt7927-wifi>   CC [M]  debugfs.o
+mediatek-mt7927-wifi>   CC [M]  eeprom.o
+mediatek-mt7927-wifi>   CC [M]  tx.o
+mediatek-mt7927-wifi>   CC [M]  agg-rx.o
+mediatek-mt7927-wifi>   CC [M]  mcu.o
+mediatek-mt7927-wifi>   CC [M]  wed.o
+mediatek-mt7927-wifi>   CC [M]  scan.o
+mediatek-mt7927-wifi>   CC [M]  channel.o
+mediatek-mt7927-wifi>   CC [M]  pci.o
+mediatek-mt7927-wifi>   LD [M]  mt76.o
+mediatek-mt7927-wifi>   CC [M]  mt76_connac_mcu.o
+mediatek-mt7927-wifi>   CC [M]  mt76_connac_mac.o
+mediatek-mt7927-wifi>   CC [M]  mt76_connac3_mac.o
+mediatek-mt7927-wifi>   LD [M]  mt76-connac-lib.o
+mediatek-mt7927-wifi>   CC [M]  mt792x_core.o
+mediatek-mt7927-wifi>   CC [M]  mt792x_mac.o
+mediatek-mt7927-wifi>   CC [M]  mt792x_trace.o
+mediatek-mt7927-wifi>   CC [M]  mt792x_debugfs.o
+mediatek-mt7927-wifi>   CC [M]  mt792x_dma.o
+mediatek-mt7927-wifi>   CC [M]  mt792x_acpi_sar.o
+mediatek-mt7927-wifi>   LD [M]  mt792x-lib.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/mac.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/mcu.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/regd.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/main.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/init.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/debugfs.o
+mediatek-mt7927-wifi>   LD [M]  mt7921/mt7921-common.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/pci.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/pci_mac.o
+mediatek-mt7927-wifi>   CC [M]  mt7921/pci_mcu.o
+mediatek-mt7927-wifi>   LD [M]  mt7921/mt7921e.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/mac.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/mcu.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/regd.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/main.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/init.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/debugfs.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/nan.o
+mediatek-mt7927-wifi>   LD [M]  mt7925/mt7925-common.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/pci.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/pci_mac.o
+mediatek-mt7927-wifi>   CC [M]  mt7925/pci_mcu.o
+mediatek-mt7927-wifi>   LD [M]  mt7925/mt7925e.o
+mediatek-mt7927-wifi>   MODPOST Module.symvers
+mediatek-mt7927-wifi>   CC [M]  mt76.mod.o
+mediatek-mt7927-wifi>   CC [M]  .module-common.o
+mediatek-mt7927-wifi>   LD [M]  mt76.ko
+mediatek-mt7927-wifi>   BTF [M] mt76.ko
+mediatek-mt7927-wifi>   CC [M]  mt76-connac-lib.mod.o
+mediatek-mt7927-wifi>   LD [M]  mt76-connac-lib.ko
+mediatek-mt7927-wifi>   BTF [M] mt76-connac-lib.ko
+mediatek-mt7927-wifi>   CC [M]  mt792x-lib.mod.o
+mediatek-mt7927-wifi>   LD [M]  mt792x-lib.ko
+mediatek-mt7927-wifi>   BTF [M] mt792x-lib.ko
+mediatek-mt7927-wifi>   CC [M]  mt7921/mt7921-common.mod.o
+mediatek-mt7927-wifi>   LD [M]  mt7921/mt7921-common.ko
+mediatek-mt7927-wifi>   BTF [M] mt7921/mt7921-common.ko
+mediatek-mt7927-wifi>   CC [M]  mt7921/mt7921e.mod.o
+mediatek-mt7927-wifi>   LD [M]  mt7921/mt7921e.ko
+mediatek-mt7927-wifi>   BTF [M] mt7921/mt7921e.ko
+mediatek-mt7927-wifi>   CC [M]  mt7925/mt7925-common.mod.o
+mediatek-mt7927-wifi>   LD [M]  mt7925/mt7925-common.ko
+mediatek-mt7927-wifi>   BTF [M] mt7925/mt7925-common.ko
+mediatek-mt7927-wifi>   CC [M]  mt7925/mt7925e.mod.o
+mediatek-mt7927-wifi>   LD [M]  mt7925/mt7925e.ko
+mediatek-mt7927-wifi>   BTF [M] mt7925/mt7925e.ko
+mediatek-mt7927-wifi> make[1]: Leaving directory '/build/mt76'
+mediatek-mt7927-wifi> make: Leaving directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-wifi> Running phase: installPhase
+mediatek-mt7927-wifi> make: Entering directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-wifi> make[1]: Entering directory '/build/mt76'
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76.ko.xz
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76-connac-lib.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76-connac-lib.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76-connac-lib.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt76-connac-lib.ko.xz
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt792x-lib.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt792x-lib.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt792x-lib.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt792x-lib.ko.xz
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921-common.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921-common.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921-common.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921-common.ko.xz
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921e.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921e.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921e.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7921/mt7921e.ko.xz
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925-common.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925-common.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925-common.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925-common.ko.xz
+mediatek-mt7927-wifi>   INSTALL /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925e.ko
+mediatek-mt7927-wifi>   STRIP   /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925e.ko
+mediatek-mt7927-wifi>   SIGN    /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925e.ko
+mediatek-mt7927-wifi>   XZ      /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13/extra/mt76/mt7925/mt7925e.ko.xz
+mediatek-mt7927-wifi>   DEPMOD  /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib/modules/7.2.13
+mediatek-mt7927-wifi> make[1]: Leaving directory '/build/mt76'
+mediatek-mt7927-wifi> make: Leaving directory '/nix/store/ikrsb7hwicl423p0bqmgr0yy4kaffxax-linux-7.2.13-dev/lib/modules/7.2.13/build'
+mediatek-mt7927-wifi> Running phase: fixupPhase
+mediatek-mt7927-wifi> shrinking RPATHs of ELF executables and libraries in /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1
+mediatek-mt7927-wifi> checking for references to /build/ in /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1...
+mediatek-mt7927-wifi> patching script interpreter paths in /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1
+mediatek-mt7927-wifi> stripping (with command strip and flags -S -p) in /nix/store/lyaa8fh2sfhibm9q15wz7pj7cchd81a8-mediatek-mt7927-wifi-2.1/lib
+building '/nix/store/f8b4p7lcgsdblhlciq7dlb4srv8wm2ac-linux-7.2.13-modules.drv'...
+linux> structuredAttrs is enabled
+linux> created 162 symlinks in user environment
+linux> structuredAttrs is enabled
+linux> kernel version is 7.2.13
+/nix/store/971yjf36rxxq40943ba67448sa9hsbsd-linux-7.2.13-modules
+EXIT=0
