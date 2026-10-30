@@ -1,25 +1,47 @@
 mt7925: enable the awdl sniffer automatically with owly's monitor
 
 instead of needing a manual write to the awdl_rx debugfs file, turn the
-promiscuous sniffer on (and open the rx filter) whenever a monitor
-interface is added, and turn it back off when the monitor goes away.
-owly's exclusive mode brings its ap cell up on-channel first and then
-adds the monitor, so by the time add_interface runs for the monitor the
-channel is already set in mphy->chandef, which config_sniffer falls back
-to when the vif has no chanctx of its own. the ap cell keeps acking the
-phone; this just makes the mac deliver ambient awdl alongside it.
+promiscuous sniffer on (and open the rx filter) whenever a monitor asks
+for other-bss frames, and turn it back off when it stops.
+
+owly's exclusive mode runs an ap cell plus a monitor, which is not a
+valid hardware interface combination, so mac80211 brings the monitor up
+in software and never calls the driver's add_interface for it. the event
+that does fire is configure_filter, with FIF_OTHER_BSS set, so hook there
+and defer the work: a worker iterates to the ap cell (the vif that has a
+chanctx), enables the firmware sniffer on its channel, and clears the
+rx-filter drop bits. the ap cell keeps acking the phone; this just makes
+the mac deliver ambient awdl alongside it.
 
 --- a/mt7925/main.c
 +++ b/mt7925/main.c
-@@ -451,6 +451,30 @@
+@@ -451,6 +451,48 @@
  	return ret;
  }
 
++static struct mt792x_dev *mt7925_awdl_dev;
++static bool mt7925_awdl_want;
++
 +static void
-+mt7925_awdl_rx_enable(struct mt792x_dev *dev, struct ieee80211_vif *vif,
-+		      bool enable)
++mt7925_awdl_iter(void *priv, u8 *mac, struct ieee80211_vif *vif)
 +{
++	struct mt792x_dev *dev = priv;
 +	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
++	struct ieee80211_chanctx_conf *ctx = mvif->bss_conf.mt76.ctx;
++
++	/* the ap cell is the vif with a chanctx; the software monitor has
++	 * none. enable the sniffer on the cell's channel. */
++	if (!ctx)
++		return;
++	mt7925_mcu_set_sniffer(dev, vif, mt7925_awdl_want);
++	if (mt7925_awdl_want)
++		mt7925_mcu_config_sniffer(mvif, ctx);
++}
++
++static void
++mt7925_awdl_work_fn(struct work_struct *work)
++{
++	struct mt792x_dev *dev = mt7925_awdl_dev;
 +	u32 drop = MT_WF_RFCR_DROP_OTHER_BSS |
 +		   MT_WF_RFCR_DROP_OTHER_UC |
 +		   MT_WF_RFCR_DROP_A3_BSSID |
@@ -27,37 +49,32 @@ phone; this just makes the mac deliver ambient awdl alongside it.
 +		   MT_WF_RFCR_DROP_OTHER_BEACON |
 +		   MT_WF_RFCR_DROP_OTHER_TIM;
 +
-+	/* owly's exclusive mode puts an ap cell on-channel to ack the phone,
-+	 * then adds this monitor. the firmware sniffer is what delivers
-+	 * ambient awdl, so turn it on here (the ap already set the channel in
-+	 * mphy->chandef, which config_sniffer falls back to) and open the rx
-+	 * filter. undo both when the monitor goes away. bit_op 2 clears the
-+	 * drop bitmap, 1 restores it. */
-+	mt7925_mcu_set_sniffer(dev, vif, enable);
-+	if (enable)
-+		mt7925_mcu_config_sniffer(mvif, mvif->bss_conf.mt76.ctx);
-+	mt7925_mcu_set_rxfilter(dev, 0, enable ? 2 : 1, drop);
++	if (!dev)
++		return;
++
++	mt792x_mutex_acquire(dev);
++	ieee80211_iterate_active_interfaces(mt76_hw(dev),
++					    IEEE80211_IFACE_ITER_RESUME_ALL,
++					    mt7925_awdl_iter, dev);
++	mt7925_mcu_set_rxfilter(dev, 0, mt7925_awdl_want ? 2 : 1, drop);
++	mt792x_mutex_release(dev);
 +}
++static DECLARE_WORK(mt7925_awdl_work, mt7925_awdl_work_fn);
 +
  static int
  mt7925_add_interface(struct ieee80211_hw *hw, struct ieee80211_vif *vif)
  {
-@@ -480,6 +504,9 @@
-
- 	if (vif->type == NL80211_IFTYPE_NAN)
- 		dev->nan_vif = vif;
-+
-+	if (vif->type == NL80211_IFTYPE_MONITOR)
-+		mt7925_awdl_rx_enable(dev, vif, true);
- out:
+@@ -877,6 +919,13 @@
  	mt792x_mutex_release(dev);
 
-@@ -501,6 +528,9 @@
- 	mconf = mt792x_link_conf_to_mconf(&vif->bss_conf);
- 	mt792x_mac_link_bss_remove(dev, mconf, &mvif->sta.deflink);
-
-+	if (vif->type == NL80211_IFTYPE_MONITOR)
-+		mt7925_awdl_rx_enable(dev, vif, false);
+ 	*total_flags &= (FIF_OTHER_BSS | FIF_FCSFAIL | FIF_CONTROL);
 +
- 	mt792x_mutex_release(dev);
++	/* a monitor (owly's) asks for other-bss frames; the firmware only
++	 * delivers them with its sniffer on, which plain filter flags don't
++	 * turn on. defer to a worker that enables it on the cell's channel. */
++	mt7925_awdl_dev = dev;
++	mt7925_awdl_want = !!(*total_flags & FIF_OTHER_BSS);
++	ieee80211_queue_work(hw, &mt7925_awdl_work);
  }
+
+ static u8
