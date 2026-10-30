@@ -119,7 +119,7 @@
               pkgs.perl
               pkgs.kmod
             ];
-            patches = wifiPatches;
+            patches = wifiPatches ++ [ ./patches/awdl-rxfilter-debugfs.patch ];
             postPatch = ''
               # Install upstream Kbuild files
               cp ${repoSrc}/mt76.Kbuild Kbuild

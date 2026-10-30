@@ -1,0 +1,73 @@
+mt7925: debugfs knob to receive awdl alongside an ap cell
+
+the mt7925/7927 only delivers ambient (other-bss) frames to the host
+through its promiscuous sniffer (UNI_SNIFFER), which the driver enables
+only in pure monitor mode. acking the phone, on the other hand, needs a
+real vif that owns the mac. owly's exclusive mode stands up an ap cell
+for the ack but then can't sniff, so it hears nothing.
+
+this adds a write-only debugfs file, awdl_rx. writing 1 forces the
+sniffer on over the top of whatever vif is up (owly's ap cell) and
+clears the hardware rx-filter drop bits, reproducing the pure-monitor
+rx path while the cell keeps acking. writing 0 undoes both.
+
+--- a/mt7925/debugfs.c
++++ b/mt7925/debugfs.c
+@@ -286,6 +286,49 @@
+
+ DEFINE_DEBUGFS_ATTRIBUTE(fops_reset, NULL, mt7925_chip_reset, "%lld\n");
+
++struct mt7925_awdl_ctx {
++	struct mt792x_dev *dev;
++	bool enable;
++};
++
++static void
++mt7925_awdl_iter(void *priv, u8 *mac, struct ieee80211_vif *vif)
++{
++	struct mt7925_awdl_ctx *c = priv;
++	struct mt792x_vif *mvif = (struct mt792x_vif *)vif->drv_priv;
++	struct ieee80211_chanctx_conf *ctx = mvif->bss_conf.mt76.ctx;
++
++	mt7925_mcu_set_sniffer(c->dev, vif, c->enable);
++	if (c->enable && ctx)
++		mt7925_mcu_config_sniffer(mvif, ctx);
++}
++
++static int
++mt7925_awdl_rx_set(void *data, u64 val)
++{
++	struct mt792x_dev *dev = data;
++	struct mt7925_awdl_ctx c = { .dev = dev, .enable = !!val };
++	u32 drop = MT_WF_RFCR_DROP_OTHER_BSS |
++		   MT_WF_RFCR_DROP_OTHER_UC |
++		   MT_WF_RFCR_DROP_A3_BSSID |
++		   MT_WF_RFCR_DROP_A2_BSSID |
++		   MT_WF_RFCR_DROP_OTHER_BEACON |
++		   MT_WF_RFCR_DROP_OTHER_TIM;
++
++	mt792x_mutex_acquire(dev);
++	/* force the promiscuous sniffer on over the top of owly's ap cell and
++	 * open the rx filter, so the mac delivers ambient awdl while the cell
++	 * still acks the phone. writing 0 undoes both. */
++	ieee80211_iterate_active_interfaces(mt76_hw(dev),
++					    IEEE80211_IFACE_ITER_RESUME_ALL,
++					    mt7925_awdl_iter, &c);
++	mt7925_mcu_set_rxfilter(dev, 0, val ? 2 : 1, drop);
++	mt792x_mutex_release(dev);
++
++	return 0;
++}
++DEFINE_DEBUGFS_ATTRIBUTE(fops_awdl_rx, NULL, mt7925_awdl_rx_set, "%lld\n");
++
+ int mt7925_init_debugfs(struct mt792x_dev *dev)
+ {
+ 	struct dentry *dir;
+@@ -312,6 +355,7 @@
+ 	debugfs_create_devm_seqfile(dev->mt76.dev, "runtime_pm_stats", dir,
+ 				    mt792x_pm_stats);
+ 	debugfs_create_file("deep-sleep", 0600, dir, dev, &fops_ds);
++	debugfs_create_file("awdl_rx", 0600, dir, dev, &fops_awdl_rx);
+
+ 	return 0;
+ }
